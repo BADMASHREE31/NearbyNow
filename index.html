@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Firebase Firestore Test (SDK v8)</title>
+</head>
+<body>
+  <h1>Firestore Test (v8)</h1>
+  <button onclick="writeData()">Write Data</button>
+  <button onclick="readData()">Read Data</button>
+
+  <!-- Firebase v8 SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+  <script>
+    // 🔁 Replace this with your actual config from Firebase Console
+    const firebaseConfig = {
+    apiKey: "AIzaSyB1YFD2qAsxOaP21NXQ5sm0j6gBC5AFQAU",
+    authDomain: "nearbynow-00.firebaseapp.com",
+    projectId: "nearbynow-00",
+    storageBucket: "nearbynow-00.firebasestorage.app",
+    messagingSenderId: "654190395040",
+    appId: "1:654190395040:web:d6d6e4a41e75a874b753c5",
+    measurementId: "G-36FPGNK8VL"
+  };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    var db = firebase.firestore();
+
+    function writeData() {
+      db.collection("testCollection").doc("testDoc").set({
+        name: "Test User",
+        timestamp: new Date()
+      })
+      .then(() => {
+        console.log("Document successfully written!");
+      })
+      .catch((error) => {
+        console.error("Error writing document: ", error);
+      });
+    }
+
+    function readData() {
+      db.collection("testCollection").doc("testDoc").get()
+      .then((doc) => {
+        if (doc.exists) {
+          console.log("Document data:", doc.data());
+        } else {
+          console.log("No such document!");
+        }
+      })
+      .catch((error) => {
+        console.error("Error getting document:", error);
+      });
+    }
+  </script>
+</body>
+</html>
